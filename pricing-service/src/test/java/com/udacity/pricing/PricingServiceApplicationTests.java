@@ -19,30 +19,30 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.net.URI;
+
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(SpringRunner.class)
-//@SpringBootTest
-//@WebMvcTest(PricingController.class)
+@WebMvcTest(PricingController.class)
 public class PricingServiceApplicationTests {
-//	@Autowired
-//	private MockMvc mockMvc;
-//
-//	@MockBean
-//	private PricingService pricingService;
-//
-////	@Test
-////	public void getPrice() throws Exception {
-////		mockMvc.perform(MockMvcRequestBuilders.get("/service/price?vehicleId=1"))
-////				.andExpect(MockMvcResultMatchers.status().isOk());
-//////				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-//////				.andExpect(MockMvcResultMatchers.content().json("[]"));
-////
-//////		Mockito.verify(pricingService,Mockito.times(1)).get();
-////	}
+	@Autowired
+	private MockMvc mockMvc;
+
+	@MockBean
+	private PricingService pricingService;
+
 	@Test
-	public void getStaticPrice() throws PriceException {
-		Assert.assertNotNull(PricingService.getPrice((long) 1));
-//		Assert.assert(new PriceException("Cannot find price for Vehicle 1"), PricingService.getPrice());
-//		Assertions.assertThatExceptionOfType(PriceException.class);
+	public void getPrice() throws Exception {
+		mockMvc.perform(
+				get(new URI("/services/price?vehicleId=1"))
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.accept(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(status().isOk());
+
 	}
 
 
