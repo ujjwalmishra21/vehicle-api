@@ -57,7 +57,7 @@ public class CarService {
         }
 
         Car car = carFound.get();
-        System.out.println("CAR::" + car);
+
         String price = priceClient.getPrice(id);
         car.setPrice(price);
 
